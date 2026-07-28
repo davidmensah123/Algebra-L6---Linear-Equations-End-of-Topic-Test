@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCSE Mathematics Test - Algebra and Linear Equations</title>
+    <!-- Tailwind CSS for responsive layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration and Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Guaranteed Single Straight-Line Question Style stretched across full width */
+        .straight-line-question {
+            white-space: nowrap !important;
+            overflow-x: auto !important;
+            display: block !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Header & Telemetry Bar -->
+    <header class="bg-slate-900 text-white shadow-md border-b-4 border-indigo-500 py-4 px-6 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-500 text-slate-900 p-2 rounded-xl font-bold text-xl flex items-center justify-center shadow-lg">
+                    <i class="fa-solid fa-calculator text-lg text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-md md:text-lg font-extrabold tracking-tight">GCSE Mathematics Test</h1>
+                    <p class="text-xs text-slate-400 font-medium">Topic: Algebra and Linear Equations (Unknowns Both Sides, Brackets, Fractions, Geometry & Word Models)</p>
+                </div>
+            </div>
+            
+            <!-- Live Info Telemetry -->
+            <div id="live-info-bar" class="flex items-center space-x-4 md:space-x-6">
+                <!-- Countdown Timer Display -->
+                <div id="timer-box" class="flex items-center space-x-2 bg-slate-800 px-4 py-2 rounded-xl border border-slate-700 transition-all duration-300">
+                    <i id="timer-icon" class="fa-regular fa-clock text-indigo-400 text-lg"></i>
+                    <span id="timer-text" class="font-mono font-bold text-sm md:text-lg text-indigo-400">15:00</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+        
+        <!-- Results Diagnostic Suite (Appears at top after final submission) -->
+        <section id="results-screen" class="hidden space-y-6">
+            <!-- Dynamic Diagnostic Report Certificate -->
+            <div class="bg-slate-900 rounded-3xl text-white shadow-xl border border-slate-800 overflow-hidden relative">
+                <div class="absolute -right-12 -top-12 text-slate-800 text-9xl opacity-20 pointer-events-none transform rotate-12">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                
+                <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
+                    <!-- Circular Scoring Graphic -->
+                    <div class="lg:col-span-4 flex flex-col items-center justify-center text-center">
+                        <div class="relative w-36 h-36 flex items-center justify-center bg-slate-800 rounded-full border-4 border-indigo-500 shadow-inner">
+                            <div class="text-center">
+                                <span id="final-marks-display" class="text-3xl md:text-4xl font-black text-indigo-400">0/10</span>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Marks Scored</p>
+                                <span id="final-percentage-display" class="text-[10px] font-bold text-white bg-slate-700 px-2 py-0.5 rounded-full mt-1.5 inline-block">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grade Boundaries Visual Outcome -->
+                    <div class="lg:col-span-5 space-y-2 text-center lg:text-left">
+                        <span class="text-[10px] font-extrabold tracking-widest text-indigo-400 uppercase">Assessment Completed</span>
+                        <h2 class="text-xl md:text-2xl font-black text-white">Your Certificate of Outcome</h2>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mt-1">
+                            <div id="grade-badge" class="px-5 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-black text-xl rounded-xl shadow-md border border-purple-500 flex items-center justify-center min-w-[100px] tracking-wide">
+                                GRADE U
+                            </div>
+                            <div class="text-xs text-slate-300 text-center sm:text-left">
+                                <p class="text-[10px] text-slate-400">Date: <span id="cert-exam-date">---</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Diagnostics Metrics Grid -->
+                    <div class="lg:col-span-3 bg-slate-800/80 p-4 rounded-xl border border-slate-700/60 space-y-2.5">
+                        <h4 class="text-[10px] font-extrabold text-slate-400 tracking-wider uppercase">Exam Statistics</h4>
+                        <div class="grid grid-cols-2 gap-2 text-[10px] font-bold">
+                            <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-700/30">
+                                <span class="text-slate-400 block mb-0.5">Correct Qs</span>
+                                <span id="stat-correct-count" class="font-extrabold text-indigo-400 text-xs">0 / 10</span>
+                            </div>
+                            <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-700/30">
+                                <span class="text-slate-400 block mb-0.5">Time Taken</span>
+                                <span id="stat-time-taken" class="font-extrabold text-amber-400 text-xs">0m 0s</span>
+                            </div>
+                            <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-700/30">
+                                <span class="text-slate-400 block mb-0.5">Non-Calculator</span>
+                                <span id="stat-sub-noncalc" class="font-extrabold text-white text-xs">0%</span>
+                            </div>
+                            <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-700/30">
+                                <span class="text-slate-400 block mb-0.5">Calculator</span>
+                                <span id="stat-sub-calc" class="font-extrabold text-white text-xs">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Diagnostic Written Report -->
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-slate-50 px-5 py-4 border-b border-slate-200 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="text-slate-500"><i class="fa-solid fa-pen-nib text-sm"></i></span>
+                        <h3 class="font-black text-slate-800 uppercase tracking-tight text-xs">GCSE Examiner's Diagnostic Analysis</h3>
+                    </div>
+                    <span class="text-[9px] bg-slate-200 text-slate-600 px-2.5 py-1 rounded font-extrabold uppercase">Feedback Report</span>
+                </div>
+                
+                <div class="p-6 space-y-6">
+                    <div class="border-l-4 border-indigo-500 pl-4 py-0.5">
+                        <h4 class="font-extrabold text-slate-800 text-sm">Examiner's Assessment Summary</h4>
+                        <p id="examiner-summary-text" class="text-slate-600 text-xs leading-relaxed mt-1">
+                            <!-- Dynamic text outcome -->
+                        </p>
+                    </div>
+
+                    <!-- Strengths and Weaknesses Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-emerald-50 rounded-2xl p-4 border border-emerald-100">
+                            <h4 class="font-black text-emerald-800 text-xs flex items-center gap-2 uppercase tracking-wide">
+                                <span class="bg-emerald-100 text-emerald-600 p-1 rounded-md text-[10px]"><i class="fa-solid fa-circle-check"></i></span>
+                                Core Strengths
+                            </h4>
+                            <ul id="examiner-strengths-list" class="mt-3 text-xs space-y-2 text-slate-700 list-disc pl-4 font-medium">
+                                <!-- Dynamic strengths list -->
+                            </ul>
+                        </div>
+
+                        <div class="bg-amber-50 rounded-2xl p-4 border border-amber-100">
+                            <h4 class="font-black text-amber-800 text-xs flex items-center gap-2 uppercase tracking-wide">
+                                <span class="bg-amber-100 text-amber-600 p-1 rounded-md text-[10px]"><i class="fa-solid fa-circle-exclamation"></i></span>
+                                Targets for Improvement
+                            </h4>
+                            <ul id="examiner-improvements-list" class="mt-3 text-xs space-y-2 text-slate-700 list-disc pl-4 font-medium">
+                                <!-- Dynamic improvement list -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Retake Exam Button Area -->
+                    <div class="bg-slate-900 text-white rounded-2xl p-4 border border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div>
+                            <h4 class="font-bold text-xs text-indigo-400">Need to improve your grade?</h4>
+                            <p class="text-[10px] text-slate-300 mt-0.5">You can immediately restart this GCSE assessment to correct misconceptions and secure a Grade 9.</p>
+                        </div>
+                        <button id="retake-test-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition duration-200 whitespace-nowrap">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Restart Examination
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Workspace Two-Column Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- LEFT COLUMN: Syllabus, Guidelines & Live Progress Map (Sticky Sidebar) -->
+            <aside class="lg:col-span-4 space-y-6 flex flex-col lg:sticky lg:top-24 h-fit">
+                
+                <!-- Exam Navigator Card -->
+                <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <span class="text-xs font-black text-slate-700 uppercase tracking-wider">Scroll Navigation Map</span>
+                        <span id="answered-badge" class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full font-extrabold">0 / 10 Done</span>
+                    </div>
+
+                    <!-- Progress bar meter -->
+                    <div class="w-full bg-slate-100 rounded-full h-2">
+                        <div id="exam-progress-bar" class="bg-indigo-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+
+                    <!-- Question Grid Map -->
+                    <div class="grid grid-cols-5 gap-2" id="navigator-grid">
+                        <!-- Populated dynamically by JS -->
+                    </div>
+
+                    <!-- Navigator Legend -->
+                    <div class="pt-2 border-t border-slate-100 flex flex-wrap gap-y-2 justify-between text-[10px] text-slate-500 font-bold">
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-slate-100 border border-slate-300 inline-block"></span> Unseen</span>
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-400 inline-block"></span> Flagged</span>
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-indigo-600 inline-block"></span> Complete</span>
+                    </div>
+                </section>
+
+                <!-- Grade Boundaries Info Box (Toggleable) -->
+                <section class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                    <button id="toggle-boundaries-btn" class="w-full bg-slate-50 px-4 py-3 text-left font-black text-slate-700 flex justify-between items-center hover:bg-slate-100 transition">
+                        <span class="text-xs uppercase tracking-wider"><i class="fa-solid fa-circle-info mr-2 text-indigo-600"></i>Official Grade Boundaries</span>
+                        <i id="boundaries-icon" class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div id="boundaries-table" class="hidden p-4 bg-slate-50 grid grid-cols-5 gap-1.5 text-center text-[10px] font-bold border-t border-slate-100">
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">&lt;15%<br><span class="text-xs font-black text-red-600">U</span></div>
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">15-20%<br><span class="text-xs font-black text-orange-600">1</span></div>
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">20-30%<br><span class="text-xs font-black text-amber-600">2</span></div>
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">30-40%<br><span class="text-xs font-black text-yellow-600">3</span></div>
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">40-50%<br><span class="text-xs font-black text-emerald-500">4</span></div>
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">50-55%<br><span class="text-xs font-black text-emerald-600">5</span></div>
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">55-65%<br><span class="text-xs font-black text-teal-600">6</span></div>
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">65-75%<br><span class="text-xs font-black text-blue-600">7</span></div>
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">75-80%<br><span class="text-xs font-black text-indigo-600">8</span></div>
+                        <div class="p-1.5 bg-white border border-slate-200 rounded text-slate-800">&gt;80%<br><span class="text-xs font-black text-purple-700">9</span></div>
+                    </div>
+                </section>
+
+                <!-- Revision Guidelines & Strategy Tips -->
+                <section class="bg-slate-900 text-slate-300 rounded-2xl p-5 border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h4 class="font-extrabold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-indigo-400"></i>
+                            Linear Equation Solving Rules
+                        </h4>
+                        <span class="text-[9px] bg-indigo-500/20 text-indigo-300 font-extrabold px-2 py-0.5 rounded-md border border-indigo-500/30">GCSE Higher</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <!-- 1. Unknowns on Both Sides -->
+                        <div class="bg-slate-800/90 rounded-xl p-3 border border-slate-700/80 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-white text-xs flex items-center gap-1.5">
+                                    <i class="fa-solid fa-arrows-left-right text-indigo-400 text-xs"></i> 1. Unknowns on Both Sides
+                                </span>
+                                <span class="text-[9px] font-mono bg-slate-900 text-slate-400 px-2 py-0.5 rounded border border-slate-700">\(ax + b = cx + d\)</span>
+                            </div>
+                            <div class="text-[10px] bg-slate-900/80 p-1.5 rounded-lg border border-slate-800 text-indigo-300 font-semibold text-center">
+                                \(3(2x + 5) - 2(x - 1) = 3(x + 8) \implies x = 7\)
+                            </div>
+                            <div class="text-[10px] text-slate-400 space-y-0.5 leading-tight">
+                                <p><strong class="text-slate-300">Strategy:</strong> Expand all brackets, collect like terms on each side, then subtract the smaller \(x\)-term across.</p>
+                            </div>
+                        </div>
+
+                        <!-- 2. Algebraic Fractions in Equations -->
+                        <div class="bg-slate-800/90 rounded-xl p-3 border border-slate-700/80 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-white text-xs flex items-center gap-1.5">
+                                    <i class="fa-solid fa-divide text-purple-400 text-xs"></i> 2. Algebraic Fractions
+                                </span>
+                                <span class="text-[9px] font-mono bg-slate-900 text-slate-400 px-2 py-0.5 rounded border border-slate-700">\(\text{LCM of Denominators}\)</span>
+                            </div>
+                            <div class="text-[10px] bg-slate-900/80 p-1.5 rounded-lg border border-slate-800 text-purple-300 font-semibold text-center">
+                                \(\frac{2x + 1}{3} - \frac{x - 3}{4} = 4 \implies 4(2x+1) - 3(x-3) = 48\)
+                            </div>
+                            <div class="text-[10px] text-slate-400 space-y-0.5 leading-tight">
+                                <p><strong class="text-slate-300">Clear Fractions:</strong> Multiply every single term by the LCM of all denominators to remove fractions.</p>
+                            </div>
+                        </div>
+
+                        <!-- 3. Formulating Linear Models -->
+                        <div class="bg-slate-800/90 rounded-xl p-3 border border-slate-700/80 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-white text-xs flex items-center gap-1.5">
+                                    <i class="fa-solid fa-shapes text-amber-400 text-xs"></i> 3. Geometric & Word Models
+                                </span>
+                                <span class="text-[9px] font-mono bg-slate-900 text-slate-400 px-2 py-0.5 rounded border border-slate-700">Perimeters / Ratios</span>
+                            </div>
+                            <div class="text-[10px] bg-slate-900/80 p-1.5 rounded-lg border border-slate-800 text-amber-300 font-semibold text-center">
+                                \(\text{Sum of Angles} = 180^\circ \text{ or } \text{Perimeter} = \sum \text{sides}\)
+                            </div>
+                            <div class="text-[10px] text-slate-400 space-y-0.5 leading-tight">
+                                <p><strong class="text-slate-300">Formulate & Solve:</strong> Set up an algebraic statement from geometric rules or word constraints and isolate the variable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+
+            <!-- RIGHT COLUMN: Active Test Workspace displaying all questions on one page -->
+            <article class="lg:col-span-8 space-y-6">
+                
+                <!-- Dynamic Questions Container -->
+                <div id="questions-list-container" class="space-y-6">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+
+                <!-- Test Finalization Area -->
+                <div id="submit-action-banner" class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-100 p-6 rounded-2xl border border-slate-200">
+                    <div>
+                        <h4 class="font-black text-slate-800 text-sm">Finished checking all questions?</h4>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Double check flagged or skipped questions using the map on the left before submitting.</p>
+                    </div>
+                    <button id="submit-exam-btn" class="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-emerald-600/15">
+                        <i class="fa-solid fa-paper-plane"></i> Finalize Paper & Grade
+                    </button>
+                </div>
+            </article>
+
+        </div>
+
+    </main>
+
+    <!-- Unified Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-center text-[10px]">
+        <div class="max-w-7xl mx-auto px-4 space-y-2 font-medium">
+            <p>(c) STEMATRIX EDUCATION - GCSE MATHEMATICS HIGHER TIER</p>
+        </div>
+    </footer>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirmation-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl p-5 border border-slate-200 transform transition-all duration-300 ease-out space-y-4" id="modal-content">
+            <div class="flex items-center space-x-3 text-amber-500">
+                <span class="text-2xl"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <h3 id="modal-title" class="text-sm font-black text-slate-900">Confirm Submission</h3>
+            </div>
+            <p id="modal-message" class="text-xs text-slate-600 leading-relaxed">
+                Are you sure you want to finalize your exam? Your responses will be marked immediately according to official GCSE grade boundaries.
+            </p>
+            <div class="flex justify-end space-x-2 pt-1">
+                <button id="modal-cancel-btn" class="px-3 py-2 text-slate-500 font-bold hover:bg-slate-100 rounded-lg text-xs transition">Cancel</button>
+                <button id="modal-confirm-btn" class="px-4 py-2 bg-emerald-600 text-white font-extrabold hover:bg-emerald-700 rounded-lg text-xs transition shadow-md shadow-emerald-600/10">Submit Paper</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // GCSE Maths Algebra and Linear Equations Questions Database
+        const questions = [
+            {
+                id: 1,
+                topic: "Linear Equation with Unknowns on Both Sides and Multiple Brackets",
+                calculator: false,
+                tag: "Non-Calculator",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>Solve for \\(x\\): \\(3(2x + 5) - 2(x - 1) = 3(x + 8)\\).</span>",
+                options: [
+                    { key: "A", val: "\\(x = 7\\)" },
+                    { key: "B", val: "\\(x = 5\\)" },
+                    { key: "C", val: "\\(x = 9\\)" },
+                    { key: "D", val: "\\(x = 11\\)" }
+                ],
+                correct: "A",
+                tip: "Step 1: Expand brackets on both sides:<br>LHS: \\(3(2x + 5) - 2(x - 1) = 6x + 15 - 2x + 2 = 4x + 17\\).<br>RHS: \\(3(x + 8) = 3x + 24\\).<br>Step 2: Equate both sides: \\(4x + 17 = 3x + 24\\).<br>Step 3: Subtract \\(3x\\) from both sides: \\(x + 17 = 24\\).<br>Step 4: Subtract 17 from both sides: \\(x = 7\\)."
+            },
+            {
+                id: 2,
+                topic: "Linear Equation Involving Algebraic Fractions with Subtracting Numerator",
+                calculator: false,
+                tag: "Non-Calculator",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>Solve for \\(x\\): \\(\\frac{2x + 1}{3} - \\frac{x - 3}{4} = 4\\).</span>",
+                options: [
+                    { key: "A", val: "\\(x = 5\\)" },
+                    { key: "B", val: "\\(x = 6\\)" },
+                    { key: "C", val: "\\(x = 7\\)" },
+                    { key: "D", val: "\\(x = 8\\)" }
+                ],
+                correct: "C",
+                tip: "Step 1: Clear denominators by multiplying all terms by \\(\\text{LCM}(3, 4) = 12\\):<br>\\(4(2x + 1) - 3(x - 3) = 12 \\times 4\\).<br>Step 2: Expand carefully (watch the double negative):<br>\\(8x + 4 - 3x + 9 = 48\\).<br>Step 3: Collect like terms: \\(5x + 13 = 48\\).<br>Step 4: Solve: \\(5x = 35 \\implies x = 7\\)."
+            },
+            {
+                id: 3,
+                topic: "Formulating Geometric Linear Equations (Rectangle Perimeter and Area)",
+                calculator: false,
+                tag: "Non-Calculator",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>A rectangle has length \\((3x + 2)\\text{ cm}\\) and width \\((2x - 5)\\text{ cm}\\). The perimeter is \\(54\\text{ cm}\\). Find the area of the rectangle in \\(\\text{cm}^2\\).</span>",
+                options: [
+                    { key: "A", val: "\\(120\\text{ cm}^2\\)" },
+                    { key: "B", val: "\\(140\\text{ cm}^2\\)" },
+                    { key: "C", val: "\\(160\\text{ cm}^2\\)" },
+                    { key: "D", val: "\\(180\\text{ cm}^2\\)" }
+                ],
+                correct: "B",
+                tip: "Step 1: Set up the perimeter equation: \\(2(\\text{length} + \\text{width}) = 54\\).<br>\\(2[(3x + 2) + (2x - 5)] = 54 \\implies 2(5x - 3) = 54\\).<br>\\(10x - 6 = 54 \\implies 10x = 60 \\implies x = 6\\).<br>Step 2: Calculate dimensions: \\(\\text{Length} = 3(6) + 2 = 20\\text{ cm}\\), \\(\\text{Width} = 2(6) - 5 = 7\\text{ cm}\\).<br>Step 3: Calculate Area: \\(20 \\times 7 = 140\\text{ cm}^2\\)."
+            },
+            {
+                id: 4,
+                topic: "Real-World Word Problem Linear Formulation (Age Comparison Model)",
+                calculator: false,
+                tag: "Non-Calculator",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>A father is currently 4 times as old as his daughter. In 12 years, the father will be twice as old as his daughter will be then. Find the daughter's present age.</span>",
+                options: [
+                    { key: "A", val: "\\(4\\text{ years}\\)" },
+                    { key: "B", val: "\\(5\\text{ years}\\)" },
+                    { key: "C", val: "\\(8\\text{ years}\\)" },
+                    { key: "D", val: "\\(6\\text{ years}\\)" }
+                ],
+                correct: "D",
+                tip: "Step 1: Let daughter's present age = \\(x\\). Father's present age = \\(4x\\).<br>Step 2: Ages in 12 years: daughter = \\(x + 12\\), father = \\(4x + 12\\).<br>Step 3: Formulate equation: \\(4x + 12 = 2(x + 12)\\).<br>Step 4: Solve: \\(4x + 12 = 2x + 24 \\implies 2x = 12 \\implies x = 6\\text{ years}\\)."
+            },
+            {
+                id: 5,
+                topic: "Complex Linear Equation with Multiple Fractional Expressions",
+                calculator: false,
+                tag: "Non-Calculator",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>Solve for \\(x\\): \\(\\frac{5x - 2}{4} - \\frac{2x + 1}{6} = \\frac{x + 2}{2}\\).</span>",
+                options: [
+                    { key: "A", val: "\\(x = 4\\)" },
+                    { key: "B", val: "\\(x = 3\\)" },
+                    { key: "C", val: "\\(x = 5\\)" },
+                    { key: "D", val: "\\(x = 6\\)" }
+                ],
+                correct: "A",
+                tip: "Step 1: Multiply all terms by \\(\\text{LCM}(4, 6, 2) = 12\\):<br>\\(3(5x - 2) - 2(2x + 1) = 6(x + 2)\\).<br>Step 2: Expand brackets: \\(15x - 6 - 4x - 2 = 6x + 12\\).<br>Step 3: Simplify LHS: \\(11x - 8 = 6x + 12\\).<br>Step 4: Subtract \\(6x\\) and add 8: \\(5x = 20 \\implies x = 4\\)."
+            },
+            {
+                id: 6,
+                topic: "Financial Percentage Discount and Surcharge Linear Model",
+                calculator: true,
+                tag: "Calculator Allowed",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>A television price \\(P\\) is reduced by 18% in a sale. A delivery fee of £45 is then added. The final total price is £475.50. Find the original price \\(P\\).</span>",
+                options: [
+                    { key: "A", val: "£500.00" },
+                    { key: "B", val: "£510.00" },
+                    { key: "C", val: "£525.00" },
+                    { key: "D", val: "£540.00" }
+                ],
+                correct: "C",
+                tip: "Step 1: Express 18% reduction: \\(100\\% - 18\\% = 82\\% = 0.82P\\).<br>Step 2: Formulate linear equation: \\(0.82P + 45 = 475.50\\).<br>Step 3: Subtract delivery fee: \\(0.82P = 430.50\\).<br>Step 4: Divide by 0.82: \\(P = \\frac{430.50}{0.82} = £525.00\\)."
+            },
+            {
+                id: 7,
+                topic: "Linear Equation with Variable in Denominator (Factorable Fractions)",
+                calculator: true,
+                tag: "Calculator Allowed",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>Solve for \\(x\\): \\(\\frac{6}{2x - 1} + \\frac{3}{4x - 2} = 5\\).</span>",
+                options: [
+                    { key: "A", val: "\\(x = 1.00\\)" },
+                    { key: "B", val: "\\(x = 1.50\\)" },
+                    { key: "C", val: "\\(x = 2.00\\)" },
+                    { key: "D", val: "\\(x = 1.25\\)" }
+                ],
+                correct: "D",
+                tip: "Step 1: Notice that \\(4x - 2 = 2(2x - 1)\\).<br>Step 2: Rewrite equation: \\(\\frac{6}{2x - 1} + \\frac{3}{2(2x - 1)} = 5\\).<br>Step 3: Find common denominator \\(2(2x - 1)\\):<br>\\(\\frac{12 + 3}{2(2x - 1)} = 5 \\implies \\frac{15}{2(2x - 1)} = 5\\).<br>Step 4: Multiply out: \\(15 = 10(2x - 1) = 20x - 10 \\implies 20x = 25 \\implies x = 1.25\\)."
+            },
+            {
+                id: 8,
+                topic: "Geometric Triangle Angle Sum Linear Equation Model",
+                calculator: true,
+                tag: "Calculator Allowed",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>The three interior angles of a triangle are \\((2x + 15)^\\circ\\), \\((3x - 10)^\\circ\\), and \\((4x - 5)^\\circ\\). Find the size of the largest interior angle.</span>",
+                options: [
+                    { key: "A", val: "\\(55^\\circ\\)" },
+                    { key: "B", val: "\\(75^\\circ\\)" },
+                    { key: "C", val: "\\(65^\\circ\\)" },
+                    { key: "D", val: "\\(80^\\circ\\)" }
+                ],
+                correct: "B",
+                tip: "Step 1: Sum of interior angles of a triangle is \\(180^\\circ\\):<br>\\((2x + 15) + (3x - 10) + (4x - 5) = 180\\).<br>Step 2: Collect like terms: \\(9x = 180 \\implies x = 20^\\circ\\).<br>Step 3: Calculate each angle:<br>\\(2(20) + 15 = 55^\\circ\\), \\(3(20) - 10 = 50^\\circ\\), \\(4(20) - 5 = 75^\\circ\\).<br>Step 4: Largest angle is \\(75^\\circ\\)."
+            },
+            {
+                id: 9,
+                topic: "Exponent Index Law Equation Reduced to Linear Equation",
+                calculator: true,
+                tag: "Calculator Allowed",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>Solve for \\(x\\): \\(8^{2x - 1} = 32^{x + 3}\\).</span>",
+                options: [
+                    { key: "A", val: "\\(x = 18\\)" },
+                    { key: "B", val: "\\(x = 15\\)" },
+                    { key: "C", val: "\\(x = 12\\)" },
+                    { key: "D", val: "\\(x = 21\\)" }
+                ],
+                correct: "A",
+                tip: "Step 1: Express both bases as powers of 2 (since \\(8 = 2^3\\) and \\(32 = 2^5\\)):<br>\\((2^3)^{2x - 1} = (2^5)^{x + 3}\\).<br>Step 2: Apply index law \\((a^m)^n = a^{mn}\\):<br>\\(2^{3(2x - 1)} = 2^{5(x + 3)}\\).<br>Step 3: Equate the powers to form a linear equation: \\(3(2x - 1) = 5(x + 3)\\).<br>Step 4: Expand and solve: \\(6x - 3 = 5x + 15 \\implies x = 18\\)."
+            },
+            {
+                id: 10,
+                topic: "Ratio Transfer Formulation Leading to a Linear Equation",
+                calculator: true,
+                tag: "Calculator Allowed",
+                marks: 1,
+                text: "<span class='straight-line-question bg-indigo-50/80 border border-indigo-200/80 p-3.5 px-4 rounded-xl text-indigo-950 font-semibold text-sm md:text-base shadow-xs'>Liam and Mia share counters in the ratio \\(3 : 5\\). Mia gives 18 counters to Liam, making the new ratio of Liam's to Mia's counters \\(3 : 2\\). Find the total number of counters shared.</span>",
+                options: [
+                    { key: "A", val: "60 counters" },
+                    { key: "B", val: "72 counters" },
+                    { key: "C", val: "80 counters" },
+                    { key: "D", val: "96 counters" }
+                ],
+                correct: "C",
+                tip: "Step 1: Represent initial counters: Liam = \\(3x\\), Mia = \\(5x\\). Total counters = \\(8x\\).<br>Step 2: After transferring 18 counters: Liam = \\(3x + 18\\), Mia = \\(5x - 18\\).<br>Step 3: Formulate ratio equation: \\(\\frac{3x + 18}{5x - 18} = \\frac{3}{2}\\).<br>Step 4: Cross-multiply and solve: \\(2(3x + 18) = 3(5x - 18) \\implies 6x + 36 = 15x - 54 \\implies 9x = 90 \\implies x = 10\\).<br>Total counters = \\(8x = 8(10) = 80\\) counters."
+            }
+        ];
+        
+        // State Variables
+        let timerInterval = null;
+        let timeRemaining = 900; // 15 minutes (900 seconds)
+        let hasSubmitted = false;
+        let answers = Array(questions.length).fill(null);
+        let flaggedQuestions = Array(questions.length).fill(false);
+        let examStartTime = null;
+        let examEndTime = null;
+
+        // DOM Element Bindings
+        const timerBox = document.getElementById("timer-box");
+        const timerText = document.getElementById("timer-text");
+        const timerIcon = document.getElementById("timer-icon");
+        const answeredBadge = document.getElementById("answered-badge");
+        const examProgressBar = document.getElementById("exam-progress-bar");
+        const navigatorGrid = document.getElementById("navigator-grid");
+        const toggleBoundariesBtn = document.getElementById("toggle-boundaries-btn");
+        const boundariesTable = document.getElementById("boundaries-table");
+        const boundariesIcon = document.getElementById("boundaries-icon");
+        const questionsListContainer = document.getElementById("questions-list-container");
+        const submitActionBanner = document.getElementById("submit-action-banner");
+        const submitExamBtn = document.getElementById("submit-exam-btn");
+        const resultsScreen = document.getElementById("results-screen");
+        const retakeTestBtn = document.getElementById("retake-test-btn");
+        const confirmationModal = document.getElementById("confirmation-modal");
+        const modalCancelBtn = document.getElementById("modal-cancel-btn");
+        const modalConfirmBtn = document.getElementById("modal-confirm-btn");
+
+        // Helper: Safe MathJax Typeset Trigger
+        function triggerMathTypeset() {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise().catch((err) => console.log("MathJax error:", err));
+            }
+        }
+
+        // Map mark percentage to official grade boundaries requested
+        function mapPercentageToGrade(pct) {
+            if (pct < 15) return { grade: "U", badgeClass: "from-slate-700 to-slate-800 border-slate-600" };
+            if (pct < 20) return { grade: "1", badgeClass: "from-red-600 to-rose-700 border-red-500" };
+            if (pct < 30) return { grade: "2", badgeClass: "from-orange-600 to-amber-700 border-orange-500" };
+            if (pct < 40) return { grade: "3", badgeClass: "from-amber-600 to-yellow-600 border-amber-500" };
+            if (pct < 50) return { grade: "4", badgeClass: "from-emerald-600 to-teal-600 border-emerald-500" };
+            if (pct < 55) return { grade: "5", badgeClass: "from-emerald-700 to-green-700 border-emerald-600" };
+            if (pct < 65) return { grade: "6", badgeClass: "from-teal-600 to-cyan-700 border-teal-500" };
+            if (pct < 75) return { grade: "7", badgeClass: "from-blue-600 to-indigo-700 border-blue-500" };
+            if (pct < 80) return { grade: "8", badgeClass: "from-indigo-600 to-violet-700 border-indigo-500" };
+            return { grade: "9", badgeClass: "from-purple-600 to-fuchsia-700 border-purple-500" };
+        }
+
+        function startCountdown() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                if (timeRemaining <= 0) {
+                    timeRemaining = 0;
+                    clearInterval(timerInterval);
+                    calculateGradesAndDisplay();
+                }
+
+                const mins = Math.floor(timeRemaining / 60);
+                const secs = timeRemaining % 60;
+                timerText.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                if (timeRemaining <= 60 && !hasSubmitted) {
+                    timerBox.className = "flex items-center space-x-2 bg-red-900/80 border border-red-500 px-4 py-2 rounded-xl transition-all duration-300 animate-pulse";
+                    timerText.className = "font-mono font-bold text-sm md:text-lg text-red-200";
+                    timerIcon.className = "fa-regular fa-clock text-red-300 text-sm md:text-lg";
+                }
+            }, 1000);
+        }
+
+        function initializeNavigator() {
+            navigatorGrid.innerHTML = "";
+            questions.forEach((q, idx) => {
+                const btn = document.createElement("button");
+                btn.id = `nav-btn-${idx}`;
+                btn.type = "button";
+                btn.onclick = () => scrollToQuestion(idx);
+                btn.className = "w-full py-2 rounded-xl font-extrabold text-xs transition-all border flex flex-col items-center justify-center bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200";
+                btn.innerHTML = `<span>Q${q.id}</span>`;
+                navigatorGrid.appendChild(btn);
+            });
+            updateNavigatorStyles();
+        }
+
+        function scrollToQuestion(questionIdx) {
+            const card = document.getElementById(`question-card-${questionIdx}`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function renderAllQuestions() {
+            questionsListContainer.innerHTML = "";
+            questions.forEach((q, idx) => {
+                const card = document.createElement("div");
+                card.id = `question-card-${idx}`;
+                card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300";
+
+                const calcBadge = q.calculator 
+                    ? `<span class="bg-blue-50 text-blue-700 border border-blue-200 font-extrabold text-[10px] px-2.5 py-1 rounded-lg flex items-center gap-1"><i class="fa-solid fa-calculator text-[10px]"></i> Calculator</span>`
+                    : `<span class="bg-amber-50 text-amber-700 border border-amber-200 font-extrabold text-[10px] px-2.5 py-1 rounded-lg flex items-center gap-1"><i class="fa-solid fa-ban text-[10px]"></i> Non-Calculator</span>`;
+
+                card.innerHTML = `
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex flex-wrap justify-between items-center gap-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-slate-800 text-white font-black text-xs px-2.5 py-1 rounded-lg">QUESTION ${q.id} OF 10</span>
+                            ${calcBadge}
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2.5 py-1 rounded-lg">1 Mark Total</span>
+                            <button type="button" onclick="toggleFlag(${idx})" class="text-slate-400 hover:text-amber-500 transition-colors flex items-center gap-1.5 text-xs font-bold">
+                                <i class="${flaggedQuestions[idx] ? 'fa-solid text-amber-500' : 'fa-regular'} fa-flag text-xs" id="flag-icon-${idx}"></i> 
+                                <span id="flag-text-${idx}" class="${flaggedQuestions[idx] ? 'text-amber-500' : ''}">${flaggedQuestions[idx] ? 'Flagged' : 'Flag Question'}</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-6 md:p-8 space-y-6">
+                        <!-- Full-width single straight-line question box -->
+                        <div class="w-full custom-scrollbar overflow-x-auto">
+                            ${q.text}
+                        </div>
+
+                        <!-- Multiple Choice Options Container -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="options-container-${idx}">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <!-- Worked Solution Box (Visible after submission) -->
+                        <div id="worked-solution-${idx}" class="hidden bg-indigo-50/50 rounded-xl p-4 border border-indigo-100/60 flex gap-2.5 text-xs text-slate-700 font-medium">
+                            <span class="text-indigo-600 text-lg"><i class="fa-solid fa-graduation-cap"></i></span>
+                            <div>
+                                <h5 class="font-bold text-indigo-900 uppercase tracking-wide mb-0.5 text-[10px]">Examiner Strategy & Worked Solution:</h5>
+                                <p class="leading-relaxed">${q.tip}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                questionsListContainer.appendChild(card);
+                renderQuestionOptions(idx);
+            });
+
+            updateGlobalProgress();
+            triggerMathTypeset();
+        }
+
+        function renderQuestionOptions(questionIdx) {
+            const container = document.getElementById(`options-container-${questionIdx}`);
+            if (!container) return;
+            container.innerHTML = "";
+
+            const q = questions[questionIdx];
+            const selectedKey = answers[questionIdx];
+
+            q.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.disabled = hasSubmitted;
+
+                let baseClasses = "w-full p-4 rounded-xl border text-left font-medium transition-all flex items-center justify-between group ";
+
+                if (!hasSubmitted) {
+                    if (selectedKey === opt.key) {
+                        baseClasses += "bg-indigo-50 border-indigo-500 ring-2 ring-indigo-500/20 text-indigo-900 font-bold";
+                    } else {
+                        baseClasses += "bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50";
+                    }
+                } else {
+                    if (opt.key === q.correct) {
+                        baseClasses += "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold ring-2 ring-emerald-500/20";
+                    } else if (selectedKey === opt.key && selectedKey !== q.correct) {
+                        baseClasses += "bg-rose-50 border-rose-500 text-rose-900 font-bold";
+                    } else {
+                        baseClasses += "bg-slate-50 border-slate-200 text-slate-400 opacity-60";
+                    }
+                }
+
+                btn.className = baseClasses;
+                btn.onclick = () => selectOption(questionIdx, opt.key);
+
+                let badgeClass = "w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ";
+                if (!hasSubmitted) {
+                    badgeClass += selectedKey === opt.key ? "bg-indigo-500 text-white" : "bg-slate-100 text-slate-500 group-hover:bg-slate-200";
+                } else {
+                    if (opt.key === q.correct) {
+                        badgeClass += "bg-emerald-500 text-white";
+                    } else if (selectedKey === opt.key && selectedKey !== q.correct) {
+                        badgeClass += "bg-rose-500 text-white";
+                    } else {
+                        badgeClass += "bg-slate-200 text-slate-400";
+                    }
+                }
+
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="${badgeClass}">${opt.key}</span>
+                        <span class="text-sm md:text-base">${opt.val}</span>
+                    </div>
+                    ${hasSubmitted && opt.key === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>' : ''}
+                    ${hasSubmitted && selectedKey === opt.key && selectedKey !== q.correct ? '<i class="fa-solid fa-circle-xmark text-rose-500 text-lg"></i>' : ''}
+                `;
+
+                container.appendChild(btn);
+            });
+        }
+
+        function selectOption(questionIdx, key) {
+            if (hasSubmitted) return;
+            answers[questionIdx] = key;
+            renderQuestionOptions(questionIdx);
+            updateNavigatorStyles();
+            updateGlobalProgress();
+            triggerMathTypeset();
+        }
+
+        function toggleFlag(questionIdx) {
+            flaggedQuestions[questionIdx] = !flaggedQuestions[questionIdx];
+            
+            const flagIcon = document.getElementById(`flag-icon-${questionIdx}`);
+            const flagText = document.getElementById(`flag-text-${questionIdx}`);
+
+            if (flaggedQuestions[questionIdx]) {
+                flagIcon.className = "fa-solid fa-flag text-amber-500 text-xs";
+                flagText.className = "text-amber-500";
+                flagText.textContent = "Flagged";
+            } else {
+                flagIcon.className = "fa-regular fa-flag text-xs";
+                flagText.className = "";
+                flagText.textContent = "Flag Question";
+            }
+
+            updateNavigatorStyles();
+        }
+
+        function updateGlobalProgress() {
+            const answeredCount = answers.filter(a => a !== null).length;
+            answeredBadge.textContent = `${answeredCount} / ${questions.length} Done`;
+            const pct = (answeredCount / questions.length) * 100;
+            examProgressBar.style.width = `${pct}%`;
+        }
+
+        function updateNavigatorStyles() {
+            if (hasSubmitted) return;
+            questions.forEach((q, idx) => {
+                const btn = document.getElementById(`nav-btn-${idx}`);
+                if (!btn) return;
+
+                const isAnswered = answers[idx] !== null;
+                const isFlagged = flaggedQuestions[idx];
+
+                let btnClass = "w-full py-2 rounded-xl font-extrabold text-xs transition-all border flex flex-col items-center justify-center ";
+
+                if (isFlagged) {
+                    btnClass += "bg-amber-400 border-amber-500 text-slate-900";
+                } else if (isAnswered) {
+                    btnClass += "bg-indigo-600 border-indigo-700 text-white";
+                } else {
+                    btnClass += "bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200";
+                }
+
+                btn.className = btnClass;
+            });
+        }
+
+        function calculateGradesAndDisplay() {
+            clearInterval(timerInterval);
+            examEndTime = new Date();
+            hasSubmitted = true;
+            
+            let totalMarksEarned = 0;
+            let questionsCorrectCount = 0;
+
+            const subtopics = {
+                noncalc: { earned: 0, max: 0 },
+                calc: { earned: 0, max: 0 }
+            };
+
+            questions.forEach((q, idx) => {
+                const ans = answers[idx];
+                const isCorrect = ans === q.correct;
+
+                if (isCorrect) {
+                    totalMarksEarned += 1;
+                    questionsCorrectCount++;
+                }
+
+                if (!q.calculator) {
+                    if (isCorrect) subtopics.noncalc.earned += 1;
+                    subtopics.noncalc.max += 1;
+                } else {
+                    if (isCorrect) subtopics.calc.earned += 1;
+                    subtopics.calc.max += 1;
+                }
+            });
+
+            const totalMaxMarks = questions.length;
+            const percentage = Math.round((totalMarksEarned / totalMaxMarks) * 100);
+            const performanceDetails = mapPercentageToGrade(percentage);
+
+            const timeDiffSecs = Math.round((examEndTime - examStartTime) / 1000);
+            const minutesTaken = Math.floor(timeDiffSecs / 60);
+            const secondsTaken = timeDiffSecs % 60;
+            const timeTakenStr = `${minutesTaken}m ${secondsTaken}s`;
+
+            // Display results details
+            document.getElementById("final-marks-display").textContent = `${totalMarksEarned}/${totalMaxMarks}`;
+            document.getElementById("final-percentage-display").textContent = `${percentage}%`;
+            
+            const gradeBadge = document.getElementById("grade-badge");
+            gradeBadge.textContent = `GRADE ${performanceDetails.grade}`;
+            gradeBadge.className = `px-5 py-1.5 bg-gradient-to-r ${performanceDetails.badgeClass} text-white font-black text-xl rounded-xl shadow-md flex items-center justify-center min-w-[100px] tracking-wide border`;
+
+            document.getElementById("cert-exam-date").textContent = new Date().toLocaleDateString('en-GB', {
+                day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+
+            document.getElementById("stat-correct-count").textContent = `${questionsCorrectCount} / ${questions.length}`;
+            document.getElementById("stat-time-taken").textContent = timeTakenStr;
+
+            const noncalcPct = subtopics.noncalc.max > 0 ? Math.round((subtopics.noncalc.earned / subtopics.noncalc.max) * 100) : 0;
+            const calcPct = subtopics.calc.max > 0 ? Math.round((subtopics.calc.earned / subtopics.calc.max) * 100) : 0;
+            document.getElementById("stat-sub-noncalc").textContent = `${noncalcPct}%`;
+            document.getElementById("stat-sub-calc").textContent = `${calcPct}%`;
+
+            // Compile qualitative feedback
+            compileExaminerReport(percentage, performanceDetails.grade, subtopics);
+
+            // Hide action submit bar and swap interface configurations
+            submitActionBanner.classList.add("hidden");
+            resultsScreen.classList.remove("hidden");
+
+            // Redraw options inside the inline questions list to show correct/incorrect markers and worked solutions
+            questions.forEach((_, idx) => {
+                renderQuestionOptions(idx);
+                document.getElementById(`worked-solution-${idx}`).classList.remove("hidden");
+            });
+
+            // Adjust navigation grid visual items
+            updateNavigatorStylesForResults();
+
+            // Trigger MathJax re-typesetting for final solutions view
+            triggerMathTypeset();
+
+            // Auto scroll to results overview card smoothly
+            resultsScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function compileExaminerReport(percentage, grade, subtopics) {
+            const summaryTextElement = document.getElementById("examiner-summary-text");
+            const strengthsList = document.getElementById("examiner-strengths-list");
+            const improvementsList = document.getElementById("examiner-improvements-list");
+
+            strengthsList.innerHTML = "";
+            improvementsList.innerHTML = "";
+
+            let summary = "";
+            let strengths = [];
+            let improvements = [];
+
+            if (grade === "9") {
+                summary = `Outstanding linear equation mastery! Achieving ${percentage}% demonstrates top-tier capability across unknowns on both sides, algebraic fractions, geometric perimeter/angle models, and ratio formulations.`;
+            } else if (["8", "7"].includes(grade)) {
+                summary = `Excellent performance! Scoring Grade ${grade} reflects strong problem-solving in clearing algebraic fraction denominators and forming linear equations from geometric models.`;
+            } else if (["6", "5"].includes(grade)) {
+                summary = `A solid result! Achieving Grade ${grade} shows good foundational skills in expanding brackets and solving equations with unknowns on both sides. Focus on algebraic fraction equations and negative signs.`;
+            } else if (grade === "4") {
+                summary = `You secured a Grade 4 pass! You demonstrated competence with standard multi-step linear equations, but complex fractional equations and ratio word problems require further practice.`;
+            } else if (["3", "2", "1"].includes(grade)) {
+                summary = `Your performance highlights difficulties with expanding brackets accurately and collecting terms across the equal sign.`;
+            } else {
+                summary = `You found this test challenging. Solving linear equations is a core Grade 4-9 Higher tier skill. Review inverse operations and clearing fractions step-by-step.`;
+            }
+
+            const noncalcPct = subtopics.noncalc.max > 0 ? (subtopics.noncalc.earned / subtopics.noncalc.max) * 100 : 0;
+            const calcPct = subtopics.calc.max > 0 ? (subtopics.calc.earned / subtopics.calc.max) * 100 : 0;
+
+            if (noncalcPct >= 60) {
+                strengths.push("<strong>Non-Calculator Speed:</strong> Strong ability to expand brackets and isolate variables mentally without a calculator.");
+            }
+            if (calcPct >= 75) {
+                strengths.push("<strong>Applied Linear Formulations:</strong> Excellent execution when translating geometric perimeters, percentage changes, and ratio transfers into linear models.");
+            }
+            if (noncalcPct === 100 && calcPct === 100) {
+                strengths.push("<strong>Flawless Algebra:</strong> 100% accuracy across linear equations with brackets, fractions, geometry, and exponent reduction.");
+            }
+
+            if (strengths.length === 0) {
+                strengths.push("<strong>Exam Persistence:</strong> Completed all 10 questions within the 15-minute time window.");
+            }
+
+            if (noncalcPct < 60) {
+                improvements.push("<strong>Negative Bracket Sign Errors:</strong> Be cautious when expanding expressions like \\(-(x - 3)\\), ensuring negative signs distribute correctly to give \\(-x + 3\\).");
+            }
+            if (calcPct < 75) {
+                improvements.push("<strong>Algebraic Fraction LCM:</strong> Multiply every single term on both sides by the lowest common multiple of denominators to clear fractions smoothly.");
+            }
+            if (percentage < 60) {
+                improvements.push("<strong>Ratio & Word Problems:</strong> Express unknown quantities using a single variable \\(x\\) (e.g. \\(3x\\) and \\(5x\\)) before writing the final equation.");
+            }
+
+            if (improvements.length === 0) {
+                improvements.push("<strong>Exam Readiness:</strong> Flawless performance! Continue reviewing simultaneous and quadratic equations to maintain top performance.");
+            }
+
+            summaryTextElement.innerHTML = summary;
+            strengths.forEach(s => {
+                const li = document.createElement("li");
+                li.innerHTML = s;
+                strengthsList.appendChild(li);
+            });
+            improvements.forEach(i => {
+                const li = document.createElement("li");
+                li.innerHTML = i;
+                improvementsList.appendChild(li);
+            });
+
+            triggerMathTypeset();
+        }
+
+        function updateNavigatorStylesForResults() {
+            questions.forEach((q, idx) => {
+                const btn = document.getElementById(`nav-btn-${idx}`);
+                if (!btn) return;
+
+                const ans = answers[idx];
+                const isCorrect = ans === q.correct;
+
+                let btnClass = "w-full py-2 rounded-xl font-extrabold text-[10px] transition-all border flex flex-col items-center justify-center gap-0.5 ";
+
+                if (isCorrect) {
+                    btnClass += "bg-emerald-500 border-emerald-600 text-white";
+                    btn.innerHTML = `<span>Q${q.id}</span><span class="text-[8px] font-bold"><i class="fa-solid fa-check"></i> Correct</span>`;
+                } else {
+                    btnClass += "bg-red-500 border-red-600 text-white";
+                    btn.innerHTML = `<span>Q${q.id}</span><span class="text-[8px] font-bold"><i class="fa-solid fa-xmark"></i> Wrong</span>`;
+                }
+
+                btn.className = btnClass;
+            });
+        }
+
+        // Submit Modal Listeners
+        submitExamBtn.addEventListener("click", () => {
+            const answeredCount = answers.filter(a => a !== null).length;
+            const modalMessage = document.getElementById("modal-message");
+            if (answeredCount < questions.length) {
+                modalMessage.textContent = `You have only answered ${answeredCount} out of 10 questions. Are you sure you want to finalize your exam now?`;
+            } else {
+                modalMessage.textContent = "You have answered all 10 questions! Submitting now will finalize your grade according to GCSE boundaries.";
+            }
+            confirmationModal.classList.remove("hidden");
+        });
+
+        modalCancelBtn.addEventListener("click", () => {
+            confirmationModal.classList.add("hidden");
+        });
+
+        modalConfirmBtn.addEventListener("click", () => {
+            confirmationModal.classList.add("hidden");
+            calculateGradesAndDisplay();
+        });
+
+        // Toggle Grade Boundaries Panel
+        toggleBoundariesBtn.addEventListener("click", () => {
+            boundariesTable.classList.toggle("hidden");
+            boundariesIcon.classList.toggle("rotate-180");
+        });
+
+        // Retake Examination Logic
+        retakeTestBtn.addEventListener("click", () => {
+            answers = Array(questions.length).fill(null);
+            flaggedQuestions = Array(questions.length).fill(false);
+            timeRemaining = 900;
+            hasSubmitted = false;
+
+            resultsScreen.classList.add("hidden");
+            submitActionBanner.classList.remove("hidden");
+
+            timerBox.className = "flex items-center space-x-2 bg-slate-800 px-4 py-2 rounded-xl border border-slate-700 transition-all duration-300";
+            timerText.className = "font-mono font-bold text-sm md:text-lg text-indigo-400";
+            timerIcon.className = "fa-regular fa-clock text-indigo-400 text-sm md:text-lg";
+
+            examStartTime = new Date();
+            initializeNavigator();
+            renderAllQuestions();
+            startCountdown();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            examStartTime = new Date();
+            initializeNavigator();
+            renderAllQuestions();
+            startCountdown();
+            triggerMathTypeset();
+        };
+    </script>
+</body>
+</html>
